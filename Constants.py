@@ -1,0 +1,22 @@
+
+class constants:
+
+
+    WHEEL_RADIUS = 0.03
+    
+    START_SPEED = 0.0
+    START_STEER = 0.0
+
+    MAX_SPEED = 0.3
+    MAX_STEER = 21.5
+
+    REDIS_HOST = "localhost"
+    REDIS_TIMEOUT = 5.0
+
+    REDIS_SPEED_VAR = "SPEEDVAR"
+    REDIS_STEER_VAR = "STEERVAR"
+    REDIS_CAR_STATE_LOCK = "car-state-dist-lock"
+
+    REDIS_ENCODER_LOCK = "encoder-lock"
+    REDIS_ENCODER_ENABLED_VAR = "ENCODERENABLEDVAR"
+    REDIS_ENCODER_RPS = "ENCODERRPS"
