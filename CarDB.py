@@ -132,6 +132,7 @@ class CarDB:
             return (2 * math.pi * constants.WHEEL_RADIUS) * rps
         else:
             return rps
+        
     def set_imu(self, roll, pitch, yaw):
         yaw = self.yaw
         roll = self.roll
@@ -141,6 +142,7 @@ class CarDB:
         self.db.write(constants.REDIS_IMU_VAR, str(pitch))
         self.db.write(constants.REDIS_IMU_VAR, str(roll))
         self.db.release_lock(lock=constants.REDIS_CAR_STATE_LOCK)
+        
     def get_imu(self):
         self.db.acquire_lock(lock=constants.REDIS_CAR_STATE_LOCK)
         yaw = float(self.db.read(constants.REDIS_IMU_VAR))
