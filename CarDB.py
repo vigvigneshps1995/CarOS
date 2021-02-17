@@ -147,9 +147,9 @@ class CarDB:
         
     def get_imu(self):
         self.db.acquire_lock(lock=constants.REDIS_CAR_STATE_LOCK)
-        yaw = float(self.db.read(constants.REDIS_IMU_VAR))
-        pitch = float(self.db.read(constants.REDIS_IMU_VAR))
-        roll = float(self.db.read(constants.REDIS_IMU_VAR))
+        yaw = float(self.db.read(constants.REDIS_IMU_VAR_Y))
+        pitch = float(self.db.read(constants.REDIS_IMU_VAR_P))
+        roll = float(self.db.read(constants.REDIS_IMU_VAR_R))
         self.db.release_lock(lock=constants.REDIS_CAR_STATE_LOCK)
         return yaw, pitch, roll
 
