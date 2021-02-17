@@ -74,6 +74,7 @@ class CarDB:
         # reset locks
         self.db.release_lock(lock=constants.REDIS_CAR_STATE_LOCK, force=True)
         self.db.release_lock(lock=constants.REDIS_ENCODER_LOCK, force=True)
+        self.db.release_lock(lock=constants.REDIS_IMU_LOCK, force=True)
  
     def set_car_speed_angle(self, speed, angle):
         # Normalize Speed 
@@ -135,22 +136,19 @@ class CarDB:
         else:
             return rps
         
-    def set_imu(self, roll, pitch, yaw):
-        yaw = self.yaw
-        roll = self.roll
-        pitch = self.pitch     
-        self.db.acquire_lock(lock=constants.REDIS_CAR_STATE_LOCK)
+    def set_imu(self, roll, pitch, yaw):     
+        self.db.acquire_lock(lock=constants.REDIS_IMU_LOCK)
         self.db.write(constants.REDIS_IMU_VAR_Y, str(yaw))
         self.db.write(constants.REDIS_IMU_VAR_P, str(pitch))
         self.db.write(constants.REDIS_IMU_VAR_R, str(roll))
-        self.db.release_lock(lock=constants.REDIS_CAR_STATE_LOCK)
+        self.db.release_lock(lock=constants.REDIS_IMU_LOCK)
         
     def get_imu(self):
-        self.db.acquire_lock(lock=constants.REDIS_CAR_STATE_LOCK)
+        self.db.acquire_lock(lock=constants.REDIS_IMU_LOCK)
         yaw = float(self.db.read(constants.REDIS_IMU_VAR_Y))
         pitch = float(self.db.read(constants.REDIS_IMU_VAR_P))
         roll = float(self.db.read(constants.REDIS_IMU_VAR_R))
-        self.db.release_lock(lock=constants.REDIS_CAR_STATE_LOCK)
+        self.db.release_lock(lock=constants.REDIS_IMU_LOCK)
         return yaw, pitch, roll
 
 
