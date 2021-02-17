@@ -66,7 +66,9 @@ class CarDB:
         # set staring parameters
         self.db.write(constants.REDIS_SPEED_VAR, str(constants.START_SPEED))
         self.db.write(constants.REDIS_STEER_VAR, str(constants.START_STEER))
-        self.db.write(constants.REDIS_IMU_VAR, str(constants.IMU_READINGS))
+        self.db.write(constants.REDIS_IMU_VAR_Y, str(constants.IMU_READINGS_Y))
+        self.db.write(constants.REDIS_IMU_VAR_P, str(constants.IMU_READINGS_P))
+        self.db.write(constants.REDIS_IMU_VAR_R, str(constants.IMU_READINGS_R))
         self.db.write(constants.REDIS_ENCODER_ENABLED_VAR, "false")
        
         # reset locks
@@ -138,9 +140,9 @@ class CarDB:
         roll = self.roll
         pitch = self.pitch     
         self.db.acquire_lock(lock=constants.REDIS_CAR_STATE_LOCK)
-        self.db.write(constants.REDIS_IMU_VAR, str(yaw))
-        self.db.write(constants.REDIS_IMU_VAR, str(pitch))
-        self.db.write(constants.REDIS_IMU_VAR, str(roll))
+        self.db.write(constants.REDIS_IMU_VAR_Y, str(yaw))
+        self.db.write(constants.REDIS_IMU_VAR_P, str(pitch))
+        self.db.write(constants.REDIS_IMU_VAR_R, str(roll))
         self.db.release_lock(lock=constants.REDIS_CAR_STATE_LOCK)
         
     def get_imu(self):
